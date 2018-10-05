@@ -1,0 +1,38 @@
+---
+title: "Ordered Logistic Regression"
+author: "E G"
+date: "June 7, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Packages and Dataset:
+```{r}
+library(MASS)
+library(tidyverse)
+library(readxl)
+IPT <- read_excel("BD-IPT 2010_todos.xls")
+View(IPT)
+```
+
+```{r}
+IPT$RISCO <- as.factor(IPT$RISCO)
+#IPT$moradia <- as.factor(IPT$moradia)
+IPT$inclinacao <-as.numeric(IPT$inclinacao)
+IPT$tc_inclinacao <- as.numeric((IPT$tc_inclinacao))
+```
+
+
+
+Ordered Logistic Regression
+```{r}
+
+Weight <- polr(RISCO~moradia+aterro+lixo+entulho+trincas_moradia_terreno + embarrigados + cicatrizes +degraus_abatimento + inclinados + conc_agua_chuva + lancamento_agua_servida + vazamento + fossa + drenagem+ arvores + rasteiras + desmatada + BANANEIRA + EncostaNatural + TaludesCorte, data=IPT, Hess=TRUE)
+
+coef(summary(Weight))
+
+```
+

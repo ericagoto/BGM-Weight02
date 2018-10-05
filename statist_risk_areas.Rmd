@@ -1,0 +1,106 @@
+---
+title: "Number Risk Areas"
+author: "Erica Goto"
+date: "6/20/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Library and Dataset:
+```{r}
+library(tidyverse)
+library(readxl)
+
+IPT <- read_excel("BD-IPT 2010.xls")
+
+
+```
+
+
+Wrangling dataset:
+```{r}
+Risk_Areas <- IPT %>%
+        select(Área, "Risco 4 - muito alto", "Risco 3 - alto", "Risco 2 - médio","Risco 1 - baixo", "Número de moradias na Área:")
+
+colnames(Risk_Areas) <- c("Area", "R4", "R3", "R2", "R1", "Houses" )
+
+```
+
+
+Counting numbers: 
+```{r}
+
+Houses <- Risk_Areas$Houses 
+Houses <- as.numeric(Houses)
+Sum_Houses <- sum(Houses, na.rm=TRUE) # remove NA
+Sum_Houses
+
+Numb_R4 <- sum(Risk_Areas$R4, na.rm=TRUE)
+Numb_R4
+
+Numb_R3 <- sum(Risk_Areas$R3, na.rm=TRUE)
+Numb_R3
+
+Numb_R2 <- sum(Risk_Areas$R2, na.rm=TRUE)
+Numb_R2
+
+Numb_R1 <- sum(Risk_Areas$R1, na.rm=TRUE)
+Numb_R1
+
+
+```
+## Counting houses different degree of Risk 
+```{r}
+# Counting houses
+
+Houses_R4 <- Risk_Areas %>%
+        filter(R4 == TRUE) %>%
+        select(R4, Houses)
+
+
+
+Numb_houses_R4 <- Houses_R4$Houses
+Numb_houses_R4 <- as.numeric(Numb_houses_R4)
+Sum_houses_R4 <-sum(Numb_houses_R4)
+Sum_houses_R4
+
+
+Houses_R3 <- Risk_Areas %>%
+        filter(R3 == TRUE) %>%
+        select(R3, Houses)
+
+
+
+Numb_houses_R3 <- Houses_R3$Houses
+Numb_houses_R3 <- as.numeric(Numb_houses_R3)
+Sum_houses_R3 <-sum(Numb_houses_R3, na.rm=TRUE)
+Sum_houses_R3
+
+
+
+Houses_R2 <- Risk_Areas %>%
+        filter(R2 == TRUE) %>%
+        select(R2, Houses)
+
+
+
+Numb_houses_R2 <- Houses_R2$Houses
+Numb_houses_R2 <- as.numeric(Numb_houses_R2)
+Sum_houses_R2 <-sum(Numb_houses_R2, na.rm=TRUE)
+Sum_houses_R2
+
+
+Houses_R1 <- Risk_Areas %>%
+        filter(R1 == TRUE) %>%
+        select(R1, Houses)
+
+
+Numb_houses_R1 <- Houses_R1$Houses
+Numb_houses_R1 <- as.numeric(Numb_houses_R1)
+Sum_houses_R1 <-sum(Numb_houses_R1)
+Sum_houses_R1
+```
+
